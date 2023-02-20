@@ -371,7 +371,7 @@
         },
         "string_constant": {
             "name": "string.quoted.double.flatbuffers",
-            "match": "(\")(([^\"]|\\\")*)(\")",
+            "match": "(\")((?:[^\"]|\\\")*)(\")",
             "captures": {
                 "1": {"name": "punctuation.definition.string.begin.flatbuffers"},
                 "2": {"name": "string.quoted.double.flatbuffers"},
