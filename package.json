@@ -1,7 +1,7 @@
 {
     "name": "vscode-flatbuffers",
-    "displayName": "FlatBuffers",
-    "description": "Visual Studio Code extension for FlatBuffers Schema files.",
+    "displayName": "FlatBuffers schema",
+    "description": "Visual Studio Code extension for FlatBuffers schema files.",
     "publisher": "floxay",
     "author": {
         "name": "Huba Tuba"
@@ -33,8 +33,8 @@
                 "aliases": [
                     "Flatbuffers",
                     "FlatBuffers",
-                    "Flatbuffers Schema",
-                    "FlatBuffers Schema",
+                    "Flatbuffers schema",
+                    "FlatBuffers schema",
                     "fbs",
                     "idl"
                 ],
