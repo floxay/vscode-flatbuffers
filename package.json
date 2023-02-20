@@ -1,7 +1,7 @@
 {
     "name": "vscode-flatbuffers",
     "displayName": "FlatBuffers",
-    "description": "Visual Studio Code extension for FlatBuffers.",
+    "description": "Visual Studio Code extension for FlatBuffers Schema files.",
     "publisher": "floxay",
     "author": {
         "name": "Huba Tuba"
@@ -9,7 +9,6 @@
     "icon": "images/flatbuffers-logo-transparent.png",
     "version": "0.0.1",
     "license": "MIT",
-    "private": true,
     "engines": {
         "vscode": "^1.40.0"
     },
