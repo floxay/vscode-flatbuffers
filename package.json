@@ -6,8 +6,8 @@
     "author": {
         "name": "Huba Tuba"
     },
-    "icon": "images/flatbuffers-logo-transparent.png",
-    "version": "0.1.0",
+    "icon": "images/flatbuffers-logo-clean.png",
+    "version": "0.1.1",
     "license": "MIT",
     "engines": {
         "vscode": "^1.40.0"
