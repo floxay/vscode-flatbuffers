@@ -1,0 +1,417 @@
+{
+    "name": "FlatBuffers",
+    "scopeName": "source.flatbuffers",
+    "fileTypes": ["fbs", "idl"],
+
+    "patterns": [
+        {"include": "#include"},
+        {"include": "#namespace_decl"},
+        {"include": "#type_decl"},
+        {"include": "#enum_decl"},
+        {"include": "#root_decl"},
+        {"include": "#file_extension_decl"},
+        {"include": "#file_identifier_decl"},
+        {"include": "#attribute_decl"},
+        {"include": "#rpc_decl"},
+        {"include": "#object"},
+        {"include": "#comment"}
+    ],
+
+    "repository": {
+        "include": {
+            "begin": "\\b(include|native_include)\\b\\s+",
+            "beginCaptures": {
+                "1": {"name": "keyword.control.import.flatbuffers"}
+            },
+            "end": ";",
+            "endCaptures": {
+                "0": {"name": "punctuation.terminator.flatbuffers"}
+            },
+            "patterns": [
+                {"include": "#string_constant"}
+            ]
+        },
+        "namespace_decl": {
+            "begin": "\\b(namespace)\\b\\s+",
+            "beginCaptures": {
+                "1": {"name": "keyword.other.namespace.flatbuffers"}
+            },
+            "end": ";",
+            "endCaptures": {
+                "0": {"name": "punctuation.terminator.flatbuffers"}
+            },
+            "patterns": [
+                {"include": "#ident"},
+                {
+                    "match": "\\.",
+                    "name": "punctuation.accessor.flatbuffers"
+                }
+            ]
+        },
+        "attribute_decl": {
+            "begin": "\\b(attribute)\\b\\s+",
+            "beginCaptures": {
+                "1": {"name": "keyword.other.attribute.flatbuffers"}
+            },
+            "end": ";",
+            "endCaptures": {
+                "0": {"name": "punctuation.terminator.flatbuffers"}
+            },
+            "patterns": [
+                {"include": "#ident"},
+                {
+                    "begin": "\"",
+                    "beginCaptures": {
+                        "0": {"name": "support.other.flatbuffers"}
+                    },
+                    "end": "\"",
+                    "endCaptures": {
+                        "0": {"name": "support.other.flatbuffers"}
+                    },
+                    "patterns": [
+                        {"include": "#ident"}
+                    ]
+                }
+            ]
+        },
+        "enum_decl": {
+            "name": "meta.enum-declaration.flatbuffers",
+            "begin": "\\b(enum|union)\\b\\s+",
+            "beginCaptures": {
+                "1": {"name": "keyword.other.flatbuffers"}
+            },
+            "end": "(?<=})",
+            "patterns": [
+                {"include": "#comment"},
+                {"include": "#metadata"},
+                {"include": "#type"},
+                {"include": "#ident"},
+                {
+                    "match": ":",
+                    "name": "punctuation.separator.colon.flatbuffers"
+                },
+                {
+                    "name": "meta.block.flatbuffers",
+                    "begin": "{",
+                    "beginCaptures": {
+                        "0": {"name": "punctuation.curlybrace.open.flatbuffers"}
+                    },
+                    "end": "}",
+                    "endCaptures": {
+                        "0": {"name": "punctuation.curlybrace.close.flatbuffers"}
+                    },
+                    "patterns": [
+                        {"include": "#comment"},
+                        {"include": "#metadata"},
+                        {"include": "#integer_constant"},
+                        {"include": "#type"},
+                        {"include": "#ident"},
+                        {
+                            "match": "=",
+                            "name": "keyword.operator.assignment.flatbuffers"
+                        },
+                        {
+                            "match": ":",
+                            "name": "punctuation.separator.colon.flatbuffers"
+                        }
+                    ]
+                }
+            ]
+        },
+        "type_decl": {
+            "name": "meta.type-declaration.flatbuffers",
+            "begin": "\\b(table|struct)\\b\\s+",
+            "beginCaptures": {
+                "1": {"name": "keyword.other.flatbuffers"}
+            },
+            "end": "(?<=})",
+            "patterns": [
+                {"include": "#comment"},
+                {"include": "#metadata"},
+                {"include": "#ident"},
+                {
+                    "name": "meta.block.flatbuffers",
+                    "begin": "{",
+                    "beginCaptures": {
+                        "0": {"name": "punctuation.curlybrace.open.flatbuffers"}
+                    },
+                    "end": "}",
+                    "endCaptures": {
+                        "0": {"name": "punctuation.curlybrace.close.flatbuffers"}
+                    },
+                    "patterns": [
+                        {"include": "#comment"},
+                        {"include": "#field_decl"},
+                        {"include": "#metadata"}
+                    ]
+                }
+            ]
+        },
+        "field_decl": {
+            "begin": "([a-zA-Z_][a-zA-Z0-9_]*)\\s*(:)",
+            "beginCaptures": {
+                "1": {"name": "variable.other.member.flatbuffers"},
+                "2": {"name": "punctuation.separator.colon.flatbuffers"}
+            },
+            "end": ";",
+            "endCaptures": {
+                "0": {"name": "punctuation.terminator.flatbuffers"}
+            },
+            "patterns": [
+                {"include": "#single_value"},
+                {"include": "#type"},
+                {
+                    "match": "=",
+                    "name": "keyword.operator.assignment.flatbuffers"
+                },
+                {"include": "#metadata"}
+            ]
+        },
+        "rpc_decl": {
+            "name": "meta.rpc-service-declaration.flatbuffers",
+            "begin": "\\b(rpc_service)\\b\\s+",
+            "beginCaptures": {
+                "1": {"name": "keyword.other.rpc-service.flatbuffers"}
+            },
+            "end": "(?<=})",
+            "endCaptures": {
+                "0": {"name": "punctuation.terminator.flatbuffers"}
+            },
+            "patterns": [
+                {"include": "#comment"},
+                {"include": "#ident"},
+                {
+                    "name": "meta.block.flatbuffers",
+                    "begin": "{",
+                    "beginCaptures": {
+                        "0": {"name": "punctuation.curlybrace.open.flatbuffers"}
+                    },
+                    "end": "}",
+                    "endCaptures": {
+                        "0": {"name": "punctuation.curlybrace.close.flatbuffers"}
+                    },
+                    "patterns": [
+                        {"include": "#comment"},
+                        {"include": "#rpc_method_member"},
+                        {"include": "#ident"},
+                        {"include": "#metadata"}
+                    ]
+                }
+            ]
+        },
+        "rpc_method_member": {
+            "begin": "([a-zA-Z_][a-zA-Z0-9_]*)(\\()([a-zA-Z_][a-zA-Z0-9_]*)(\\))(:)",
+            "beginCaptures": {
+                "1": {"name": "variable.other.member.flatbuffers"},
+                "2": {"name": "punctuation.parenthesis.open.flatbuffers"},
+                "3": {"name": "entity.name.class.flatbuffers"},
+                "4": {"name": "punctuation.parenthesis.close.flatbuffers"},
+                "5": {"name": "punctuation.separator.colon.flatbuffers"}
+            },
+            "end": "(?<=:)",
+            "endCaptures": {
+                "0": {"name": "punctuation.separator.colon.flatbuffers"}
+            }
+        },
+        "metadata": {
+            "name": "meta.metadata",
+            "begin": "\\(",
+            "beginCaptures": {
+                "0": {"name": "punctuation.parenthesis.open.flatbuffers"}
+            },
+            "end": "\\)",
+            "endCaptures": {
+                "0": {"name": "punctuation.parenthesis.close.flatbuffers"}
+            },
+            "patterns": [
+                {"include": "#comment"},
+                {"include": "#single_value"},
+                {
+                    "match": "[a-zA-Z_][a-zA-Z0-9_]*",
+                    "name": "keyword.control.attribute.flatbuffers"
+                },
+                {
+                    "match": ",",
+                    "name": "punctuation.separator.comma.flatbuffers"
+                },
+                {
+                    "match": ":",
+                    "name": "punctuation.separator.colon.flatbuffers"
+                }
+            ]
+        },
+        "root_decl": {
+            "begin": "\\b(root_type)\\b\\s+",
+            "beginCaptures": {
+                "1": {"name": "keyword.control.root-type.flatbuffers"}
+            },
+            "end": ";",
+            "endCaptures": {
+                "0": {"name": "punctuation.terminator.flatbuffers"}
+            },
+            "patterns": [
+                {"include": "#metadata"},
+                {"include": "#ident"}
+            ]
+        },
+        "file_extension_decl": {
+            "begin": "\\b(file_extension)\\b\\s+",
+            "beginCaptures": {
+                "1": {"name": "keyword.control.file-extension.flatbuffers"}
+            },
+            "end": ";",
+            "endCaptures": {
+                "0": {"name": "punctuation.terminator.flatbuffers"}
+            },
+            "patterns": [
+                {"include": "#string_constant"}
+            ]
+        },
+        "file_identifier_decl": {
+            "begin": "\\b(file_identifier)\\b\\s+",
+            "beginCaptures": {
+                "1": {"name": "keyword.control.file-identifier.flatbuffers"}
+            },
+            "end": ";",
+            "endCaptures": {
+                "0": {"name": "punctuation.terminator.flatbuffers"}
+            },
+            "patterns": [
+                {"include": "#string_constant"}
+            ]
+        },
+        "type": {
+            "patterns": [
+                {
+                    "match": "\\b(bool|byte|ubyte|short|ushort|int|uint|float|long|ulong|double|int8|uint8|int16|uint16|int32|uint32|int64|uint64|float32|float64|string)\\b",
+                    "name": "storage.type.flatbuffers"
+                },
+                {"include": "#ident"},
+                {
+                    "name": "meta.array.flatbuffers",
+                    "begin": "\\[",
+                    "beginCaptures": {
+                        "0": {"name": "punctuation.squarebracket.open.flatbuffers"}
+                    },
+                    "end": "\\]",
+                    "endCaptures": {
+                        "0": {"name": "punctuation.squarebracket.close.flatbuffers"}
+                    },
+                    "patterns": [
+                        {"include": "#type"},
+                        {"include": "#scalar"},
+                        {
+                            "match": ":",
+                            "name": "punctuation.separator.array-length.flatbuffers"
+                        }
+                    ]
+                }
+            ]
+        },
+        "scalar": {
+            "patterns": [
+                {
+                    "match": "\\b(true|false)\\b",
+                    "name": "constant.language.flatbuffers"
+                },
+                {"include": "#float_constant"},
+                {"include": "#integer_constant"}
+            ]
+        },
+        "integer_constant": {
+            "patterns": [
+                {
+                    "match": "([-+])?(0[xX])[0-9a-fA-F]+",
+                    "name": "constant.numeric.integer.hexadecimal.flatbuffers",
+                    "captures": {
+                        "1": {"name": "keyword.operator.arithmetic.flatbuffers"},
+                        "2": {"name": "storage.type.number.flatbuffers"}
+                    }
+                },
+                {
+                    "match": "([-+])?[0-9]+",
+                    "name": "constant.numeric.integer.decimal.flatbuffers",
+                    "captures": {
+                        "1": {"name": "keyword.operator.arithmetic.flatbuffers"}
+                    }
+                }
+            ]
+        },
+        "float_constant": {
+            "patterns": [
+                {
+                    "match": "([-+])?(([.][0-9]+)|([0-9]+[.][0-9]*))([eE][-+]?[0-9]+)?",
+                    "name": "constant.numeric.float.decimal.flatbuffers",
+                    "captures": {
+                        "1": {"name": "keyword.operator.arithmetic.flatbuffers"}
+                    }
+                },
+                {
+                    "match": "([-+])?(0[xX])(([.][0-9a-fA-F]+)|([0-9a-fA-F]+[.][0-9a-fA-F]*))([pP][-+]?[0-9]+)",
+                    "name": "constant.numeric.float.hexadecimal.flatbuffers",
+                    "captures": {
+                        "1": {"name": "keyword.operator.arithmetic.flatbuffers"},
+                        "2": {"name": "storage.type.number.flatbuffers"}
+                    }
+                },
+                {
+                    "match": "([-+])?(nan|inf|infinity)",
+                    "name": "constant.numeric.float.other.flatbuffers",
+                    "captures": {
+                        "1": {"name": "keyword.operator.arithmetic.flatbuffers"}
+                    }
+                }
+            ]
+        },
+        "single_value": {
+            "patterns": [
+                {"include": "#scalar"},
+                {"include": "#string_constant"}
+            ]
+        },
+        "string_constant": {
+            "name": "string.quoted.double.flatbuffers",
+            "match": "(\")(([^\"]|\\\")*)(\")",
+            "captures": {
+                "1": {"name": "punctuation.definition.string.begin.flatbuffers"},
+                "2": {"name": "string.quoted.double.flatbuffers"},
+                "3": {"name": "punctuation.definition.string.end.flatbuffers"}
+            }
+        },
+        "ident": {
+            "match": "[a-zA-Z_][a-zA-Z0-9_]*",
+            "name": "entity.name.class.flatbuffers"
+        },
+        "comment": {
+            "patterns": [
+                {
+                    "name": "comment.block.flatbuffers",
+                    "begin": "/\\*",
+                    "beginCaptures": {
+                        "0": {"name": "punctuation.definition.comment.flatbuffers"}
+                    },
+                    "end": "\\*/",
+                    "endCaptures": {
+                        "0": {"name": "punctuation.definition.comment.flatbuffers"}
+                    }
+                },
+                {
+                    "name": "comment.line.triple-slash.documentation.flatbuffers",
+                    "begin": "///",
+                    "beginCaptures": {
+                        "0": {"name": "punctuation.definition.comment.flatbuffers"}
+                    },
+                    "end": "$\\n"
+                },
+                {
+                    "name": "comment.line.double-slash.flatbuffers",
+                    "begin": "//",
+                    "beginCaptures": {
+                        "0": {"name": "punctuation.definition.comment.flatbuffers"}
+                    },
+                    "end": "$\\n"
+                }
+            ]
+        }
+    }
+}

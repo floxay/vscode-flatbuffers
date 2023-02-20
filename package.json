@@ -1,0 +1,57 @@
+{
+    "name": "vscode-flatbuffers",
+    "displayName": "FlatBuffers",
+    "description": "Visual Studio Code extension for FlatBuffers.",
+    "publisher": "floxay",
+    "author": {
+        "name": "Huba Tuba"
+    },
+    "icon": "images/flatbuffers-logo-transparent.png",
+    "version": "0.0.1",
+    "license": "MIT",
+    "private": true,
+    "engines": {
+        "vscode": "^1.40.0"
+    },
+    "homepage": "https://github.com/floxay/vscode-flatbuffers",
+    "bugs": {
+        "url": "https://github.com/floxay/vscode-flatbuffers/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/floxay/vscode-flatbuffers.git"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "keywords": [
+        "flatbuffers"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "flatbuffers",
+                "aliases": [
+                    "Flatbuffers",
+                    "FlatBuffers",
+                    "Flatbuffers Schema",
+                    "FlatBuffers Schema",
+                    "fbs",
+                    "idl"
+                ],
+                "extensions": [
+                    ".fbs",
+                    ".idl"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "flatbuffers",
+                "scopeName": "source.flatbuffers",
+                "path": "./syntaxes/flatbuffers.tmLanguage.json"
+            }
+        ]
+    }
+}
