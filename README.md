@@ -1,2 +1,7 @@
 # vscode-flatbuffers
- Visual Studio Code extension for FlatBuffers.
+<img src="images/flatbuffers-logo-transparent.png" alt="icon" width="128"/>
+
+Syntax highlighting for FlatBuffers Schema files in Visual Studio Code.
+
+## Preview
+<img src="images/preview.png" alt="preview" width="650"/>
