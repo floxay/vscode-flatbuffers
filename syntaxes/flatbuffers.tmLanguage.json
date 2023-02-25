@@ -9,8 +9,7 @@
         {"include": "#type_decl"},
         {"include": "#enum_decl"},
         {"include": "#root_decl"},
-        {"include": "#file_extension_decl"},
-        {"include": "#file_identifier_decl"},
+        {"include": "#file_ext_ident_decl"},
         {"include": "#attribute_decl"},
         {"include": "#rpc_decl"},
         {"include": "#object"},
@@ -19,9 +18,11 @@
 
     "repository": {
         "include": {
-            "begin": "\\b(include|native_include)\\b\\s+",
+            "name": "meta.import.flatbuffers",
+            "begin": "\\b(include)|(native_include)\\b\\s+",
             "beginCaptures": {
-                "1": {"name": "keyword.control.import.flatbuffers"}
+                "1": {"name": "keyword.control.import.flatbuffers"},
+                "2": {"name": "keyword.control.native-import.flatbuffers"}
             },
             "end": ";",
             "endCaptures": {
@@ -32,6 +33,7 @@
             ]
         },
         "namespace_decl": {
+            "name": "meta.namespace-declaration.flatbuffers",
             "begin": "\\b(namespace)\\b\\s+",
             "beginCaptures": {
                 "1": {"name": "keyword.other.namespace.flatbuffers"}
@@ -49,6 +51,7 @@
             ]
         },
         "attribute_decl": {
+            "name": "meta.attribute-declaration.flatbuffers",
             "begin": "\\b(attribute)\\b\\s+",
             "beginCaptures": {
                 "1": {"name": "keyword.other.attribute.flatbuffers"}
@@ -76,9 +79,10 @@
         },
         "enum_decl": {
             "name": "meta.enum-declaration.flatbuffers",
-            "begin": "\\b(enum|union)\\b\\s+",
+            "begin": "\\b(enum)|(union)\\b\\s+",
             "beginCaptures": {
-                "1": {"name": "keyword.other.flatbuffers"}
+                "1": {"name": "keyword.other.enum.flatbuffers"},
+                "2": {"name": "keyword.other.union.flatbuffers"}
             },
             "end": "(?<=})",
             "patterns": [
@@ -120,9 +124,10 @@
         },
         "type_decl": {
             "name": "meta.type-declaration.flatbuffers",
-            "begin": "\\b(table|struct)\\b\\s+",
+            "begin": "\\b(table)|(struct)\\b\\s+",
             "beginCaptures": {
-                "1": {"name": "keyword.other.flatbuffers"}
+                "1": {"name": "keyword.other.table.flatbuffers"},
+                "2": {"name": "keyword.other.struct.flatbuffers"}
             },
             "end": "(?<=})",
             "patterns": [
@@ -148,6 +153,7 @@
             ]
         },
         "field_decl": {
+            "name": "meta.field-declaration.flatbuffers",
             "begin": "([a-zA-Z_][a-zA-Z0-9_]*)\\s*(:)",
             "beginCaptures": {
                 "1": {"name": "variable.other.member.flatbuffers"},
@@ -214,7 +220,7 @@
             }
         },
         "metadata": {
-            "name": "meta.metadata",
+            "name": "meta.metadata.flatbuffers",
             "begin": "\\(",
             "beginCaptures": {
                 "0": {"name": "punctuation.parenthesis.open.flatbuffers"}
@@ -241,6 +247,7 @@
             ]
         },
         "root_decl": {
+            "name": "meta.root-type-declaration.flatbuffers",
             "begin": "\\b(root_type)\\b\\s+",
             "beginCaptures": {
                 "1": {"name": "keyword.control.root-type.flatbuffers"}
@@ -254,23 +261,11 @@
                 {"include": "#ident"}
             ]
         },
-        "file_extension_decl": {
-            "begin": "\\b(file_extension)\\b\\s+",
+        "file_ext_ident_decl": {
+            "begin": "\\b(file_extension)|(file_identifier)\\b\\s+",
             "beginCaptures": {
-                "1": {"name": "keyword.control.file-extension.flatbuffers"}
-            },
-            "end": ";",
-            "endCaptures": {
-                "0": {"name": "punctuation.terminator.flatbuffers"}
-            },
-            "patterns": [
-                {"include": "#string_constant"}
-            ]
-        },
-        "file_identifier_decl": {
-            "begin": "\\b(file_identifier)\\b\\s+",
-            "beginCaptures": {
-                "1": {"name": "keyword.control.file-identifier.flatbuffers"}
+                "1": {"name": "keyword.control.file-extension.flatbuffers"},
+                "2": {"name": "keyword.control.file-identifier.flatbuffers"}
             },
             "end": ";",
             "endCaptures": {
@@ -281,6 +276,7 @@
             ]
         },
         "type": {
+            "name": "meta.type.flatbuffers",
             "patterns": [
                 {
                     "match": "\\b(bool|byte|ubyte|short|ushort|int|uint|float|long|ulong|double|int8|uint8|int16|uint16|int32|uint32|int64|uint64|float32|float64|string)\\b",
@@ -309,6 +305,7 @@
             ]
         },
         "scalar": {
+            "name": "meta.scalar.flatbuffers",
             "patterns": [
                 {
                     "match": "\\b(true|false)\\b",
@@ -319,6 +316,7 @@
             ]
         },
         "integer_constant": {
+            "name": "meta.integer-constant.flatbuffers",
             "patterns": [
                 {
                     "match": "([-+])?(0[xX])[0-9a-fA-F]+",
@@ -338,6 +336,7 @@
             ]
         },
         "float_constant": {
+            "name": "meta.float-constant.flatbuffers",
             "patterns": [
                 {
                     "match": "([-+])?(([.][0-9]+)|([0-9]+[.][0-9]*))([eE][-+]?[0-9]+)?",
@@ -364,6 +363,7 @@
             ]
         },
         "single_value": {
+            "name": "meta.single-value.flatbuffers",
             "patterns": [
                 {"include": "#scalar"},
                 {"include": "#string_constant"}
@@ -383,6 +383,7 @@
             "name": "entity.name.class.flatbuffers"
         },
         "comment": {
+            "name": "meta.comment.flatbuffers",
             "patterns": [
                 {
                     "name": "comment.block.flatbuffers",
